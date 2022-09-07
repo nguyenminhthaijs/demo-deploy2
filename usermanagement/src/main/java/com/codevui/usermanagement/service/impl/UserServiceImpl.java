@@ -40,10 +40,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO getUserById(int id) throws CustomNotFoundException {
         Optional<User> userOptional = userRepository.findById(id);
-        if (userOptional.isEmpty()) {
-            throw new CustomNotFoundException(
-                    CustomError.builder().code("404").message("getUserById - User not found").build());
-        }
+       
         return UserMapper.toUserDTO(userOptional.get());
     }
 
@@ -68,9 +65,7 @@ public class UserServiceImpl implements UserService {
     public UserDTO deleteUser(int id) throws CustomNotFoundException {
 
         Optional<User> userOptional = userRepository.findById(id);
-        if (userOptional.isEmpty()) {
-            throw new CustomNotFoundException(CustomError.builder().code("404").message("User not found").build());
-        }
+       
         userRepository.deleteById(id);
         return UserMapper.toUserDTO(userOptional.get());
     }
